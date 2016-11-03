@@ -9,7 +9,38 @@
 # Deliverables:
 # 1) Print the orginal text (150 tokens)
 # 1) Print the new text
-print("START*******")
 
+import nltk
+import random
+from nltk.tokenize import sent_tokenize, word_tokenize
+#from nltk.book import *
+#from nltk import bigrams
+
+sense = nltk.corpus.gutenberg.words('austen-sense.txt')[:150]
+
+def spaced(word):
+	if word in [",", ".", "?", "!", ":", ";"]:
+		return word
+	else:
+		return " " + word
+
+print("START*******\n\n")
+
+pos = nltk.pos_tag(sense)
+
+tagmap = {"NN":"a noun","NNS":"a plural noun","VB":"a verb","JJ":"an adjective", "PRP$":"a possessive pronoun"}
+subprobs= {"NN":.15,"NNS":.1,"VB":.1,"JJ":.1, "PRP$":.1}
+
+final = []
+
+for (word, tag) in pos:
+	if tag not in subprobs or random.random() > subprobs[tag]:
+		final.append(spaced(word))
+	else:
+		new_word = input("Please enter %s:\n" % (tagmap[tag]))
+		final.append(spaced(new_word))
+
+print ("".join(spaced(w) for w in sense))
+print ("\n", "".join(final))
 
 print("\n\nEND*******")
