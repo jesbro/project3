@@ -30,7 +30,7 @@ for line in soup.find_all("a"): #href=re.compile("student")):
 		fixed = "***************"#line.text.replace("student", "AMAZING student")
 		line.replace_with(fixed)
 		print (line.text)
-	# print (line.text)
+		print (line.text)
 	# print (line.text.encode("ascii", "ignore").decode("utf-8"))
 
 	# f.write(lines.text.replace("student", "AMAZING student").strip().\
