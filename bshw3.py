@@ -14,6 +14,7 @@
 '''
 References: 
 http://stackoverflow.com/questions/28516928/how-do-you-replace-specific-characters-in-beautifulsoup?rq=1
+http://stackoverflow.com/questions/18084554/why-do-i-get-a-syntaxerror-for-a-unicode-escape-in-my-file-path
 '''
 
 import requests
@@ -40,10 +41,10 @@ for line2 in soup.find_all("p"):
 #replaces main pic with one of my own
 for img in soup.find_all("img"):
 	if img.get('alt') == None:
-		img['src'] = open("loco.jpg")
-		print (img)
-
-
+		img['src'] = r"C:\Users\Jess\Desktop\SI206\Pro3\project3\media\loco.jpg"
+#replaces local images with logo provided
+	else:
+		img['src'] = r"C:\Users\Jess\Desktop\SI206\Pro3\project3\media\logo.png"
 
 
 f.write(soup.encode("ascii", "ignore").decode("utf-8"))
