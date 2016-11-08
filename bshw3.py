@@ -11,6 +11,11 @@
 # Deliverables
 # Make sure the new page is uploaded to your GitHub account.
 
+'''
+References: 
+http://stackoverflow.com/questions/28516928/how-do-you-replace-specific-characters-in-beautifulsoup?rq=1
+'''
+
 import requests
 from bs4 import BeautifulSoup
 from bs4 import NavigableString
@@ -22,19 +27,14 @@ r = requests.get(url)
 f = open('bshw3.html', "w")
 
 soup = BeautifulSoup(r.text, "html.parser")
-#f.write(soup.encode("ascii", "ignore").decode("utf-8"))
-#for line in soup.find_all("a"):
-for line in soup.find_all("a"): #href=re.compile("student")):
+
+for line in soup.find_all("a"):
 	if "student" in line.text:
-		#l = line.p.string
-		fixed = "***************"#line.text.replace("student", "AMAZING student")
-		line.replace_with(fixed)
-		print (line.text)
-		print (line.text)
-	# print (line.text.encode("ascii", "ignore").decode("utf-8"))
+		line.string = re.sub(r'student', r'AMAZING student', line.string)
 
-	# f.write(lines.text.replace("student", "AMAZING student").strip().\
- #              encode("ascii", "ignore").decode("utf-8"))
-	# print (str(student).encode("ascii", "ignore").decode("utf-8"))
+for line2 in soup.find_all("p"):
+	if "student" in line2.text:
+		line2.string = re.sub(r'student', r'AMAZING student', line2.text)
 
+f.write(soup.encode("ascii", "ignore").decode("utf-8"))
 f.close()
