@@ -28,6 +28,7 @@ f = open('bshw3.html', "w")
 
 soup = BeautifulSoup(r.text, "html.parser")
 
+#to change students to AMAZING students
 for line in soup.find_all("a"):
 	if "student" in line.text:
 		line.string = re.sub(r'student', r'AMAZING student', line.string)
@@ -35,6 +36,15 @@ for line in soup.find_all("a"):
 for line2 in soup.find_all("p"):
 	if "student" in line2.text:
 		line2.string = re.sub(r'student', r'AMAZING student', line2.text)
+
+#replaces main pic with one of my own
+for img in soup.find_all("img"):
+	if img.get('alt') == None:
+		img['src'] = open("loco.jpg")
+		print (img)
+
+
+
 
 f.write(soup.encode("ascii", "ignore").decode("utf-8"))
 f.close()
