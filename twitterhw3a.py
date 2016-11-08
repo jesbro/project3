@@ -4,5 +4,35 @@
 
 # You will demo this live for grading.
 
-print("""No output necessary although you 
-	can print out a success/failure message if you want to.""")
+'''
+References:
+https://dev.twitter.com/oauth/overview/single-user
+'''
+
+import requests_oauthlib
+import tweepy
+
+def pretty(obj):
+    return json.dumps(obj, sort_keys=True, indent=2)
+
+#keeping my creds off github
+f = open("twitterOauth.txt")
+
+ckey, csecret, atoken, atsecret = f.readlines()
+
+ckey = ckey.strip()
+csecret = csecret.strip()
+atoken = atoken.strip()
+atsecret = atsecret.strip()
+
+f.close()
+
+
+#connecting to Twitter
+auth = tweepy.OAuthHandler(ckey,csecret)
+auth.set_access_token(atoken,atsecret)
+
+api = tweepy.API(auth)
+
+#posts status
+api.update_with_media(r"C:\Users\Jess\Desktop\SI206\Pro3\project3\media\loco.jpg", "#UMSI206 #Proj3")
