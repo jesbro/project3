@@ -11,6 +11,7 @@
 import requests_oauthlib
 import tweepy
 import json
+from textblob import TextBlob
 
 def pretty(obj):
     return json.dumps(obj, sort_keys=True, indent=2)
@@ -34,14 +35,24 @@ oauth = requests_oauthlib.OAuth1Session(ckey,
 
 #connecting to Twitter
 r = oauth.get("https://api.twitter.com/1.1/search/tweets.json", 
-	params = {'q': '10th Planet', 'count' : 2})
+	params = {'q': 'election', 'count' : 5})
 
 rj = r.json()
-# print (pretty(rj))
-print (rj['statuses'][0]['text'])
-print (rj['statuses'][1]['text'])
-# for tweet in rj:
-# 	print (tweet['statuses'])#['statuses'][0]['text'])
+polarity = 0.0
+subj = 0.0
 
-# print("Average subjectivity is")
-# print("Average polarity is")
+for val in range(len(rj['statuses'])):
+	tweet = rj['statuses'][val]['text']
+	print ('\n', tweet.encode("ascii", "ignore").decode("utf-8"))
+
+	analysis = TextBlob(tweet)
+
+	polarity += analysis.polarity
+	subj += analysis.subjectivity
+
+polarity /= len(rj['statuses'])
+subj /= len(rj['statuses'])
+
+
+print("\nAverage subjectivity is", round(subj, 4))
+print("Average polarity is", round(polarity, 4))
