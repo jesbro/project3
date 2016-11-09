@@ -7,6 +7,11 @@
 
 # Be prepared to change the search term during demo.
 
+"""
+References:
+lecture code/Colleen's github code
+"""
+
 
 import requests_oauthlib
 import tweepy

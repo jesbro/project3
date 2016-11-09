@@ -45,7 +45,8 @@ for (word, tag) in pos:
 		final.append(spaced(new_word))
 
 #prints original text, followed by madlibbed text
+print("\n\nEND*******")
 print ("".join(spaced(w) for w in sense))
 print ("\n", "".join(final))
 
-print("\n\nEND*******")
+
